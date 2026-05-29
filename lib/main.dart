@@ -68,9 +68,9 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomeScreen(),
-    const MovieScreen(),
-    const ProfileScreen(), // Profile screen yang udah dirombak
+    const TravelHomeScreen(),
+    const BookingScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -107,38 +107,148 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-// --- HOME SCREEN ---
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class TravelHomeScreen extends StatelessWidget {
+  const TravelHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 20.0,
-          mainAxisSpacing: 20.0,
-          childAspectRatio: 1.0,
+    final r = [
+      [
+        'Suite Room',
+        'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80',
+        'Suite, 1 Bedroom (duplex) Valley View',
+      ],
+      [
+        'Villa Room',
+        'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=400&q=80',
+        'Villa, Open Nature View',
+      ],
+      [
+        'Villa 2 Room',
+        'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80',
+        '2-Bedroom Villa with Private Pool',
+      ],
+      [
+        'Villa 3 Room',
+        'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80',
+        'Spacious & Cozy 3-Bedroom Villa',
+      ],
+      [
+        'Deluxe Room',
+        'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=400&q=80',
+        'Deluxe Room with King Bed & Balcony',
+      ],
+      [
+        'Family Suite',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80',
+        'Large Family Suite with Ocean View',
+      ],
+      [
+        'Presidential',
+        'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=400&q=80',
+        'Luxury Suite with Premium Amenities',
+      ],
+      [
+        'Cottage',
+        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=400&q=80',
+        'Traditional Cottage with Garden View',
+      ],
+      [
+        'Glamping Tent',
+        'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=400&q=80',
+        'Luxury Glamping Tent Experience',
+      ],
+      [
+        'Penthouse',
+        'https://images.unsplash.com/photo-1576675784201-0e142b423952?auto=format&fit=crop&w=400&q=80',
+        'Top Floor Penthouse with City Skyline',
+      ],
+    ];
+
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 12),
+          child: Text(
+            'TravelGo',
+            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          ),
         ),
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(12),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              'https://picsum.photos/id/28/800/400',
+              height: 130,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
-          );
-        },
-      ),
+          ),
+        ),
+        Expanded(
+          child: GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 1.0,
+            ),
+            itemCount: r.length,
+            itemBuilder: (_, i) => _card(context, r[i][0], r[i][1], r[i][2]),
+          ),
+        ),
+      ],
     );
   }
+
+  Widget _card(BuildContext c, String n, String img, String desc) =>
+      GestureDetector(
+        onTap: () => Navigator.push(
+          c,
+          MaterialPageRoute(builder: (_) => RoomDetailRoute(n, img, desc)),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFFD6F0E6),
+            border: Border.all(color: Colors.black12),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    img,
+                    height: 70,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Text(
+                n,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                ),
+              ),
+              const Text(
+                '\$100',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+      );
 }
 
-// --- MOVIE SCREEN ---
-class MovieScreen extends StatelessWidget {
-  const MovieScreen({super.key});
+class BookingScreen extends StatelessWidget {
+  const BookingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -234,68 +344,63 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ),
-
-        // Isi Konten Profile
-        Column(
-          children: [
-            const SizedBox(height: 20),
-            const Text(
-              'Profile',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 30),
-
-            // Foto Profil (Lingkaran Putih dengan shadow)
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+        Positioned.fill(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              const Text(
+                'Profile',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              child: const CircleAvatar(
-                radius: 45,
-                backgroundColor: Colors.white,
-                child: Icon(
-                  Icons.person_outline,
-                  size: 50,
-                  color: Colors.lightBlue,
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-
-            // List Informasi User
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: ListView(
-                  children: [
-                    const Divider(height: 1, thickness: 1),
-                    _buildInfoRow(Icons.person_outline, 'PAB 2026'),
-                    const Divider(height: 1, thickness: 1),
-                    _buildInfoRow(Icons.phone_outlined, '1462300157'),
-                    const Divider(height: 1, thickness: 1),
-                    // Logo email udah ditambahkan di sini
-                    _buildInfoRow(
-                      Icons.email_outlined,
-                      'fariddihsan@gmail.com',
+              const SizedBox(height: 30),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
                     ),
-                    const Divider(height: 1, thickness: 1),
-                    _buildInfoRow(Icons.location_on_outlined, 'Surabaya'),
-                    const Divider(height: 1, thickness: 1),
-                    _buildInfoRow(Icons.camera_alt_outlined, 'pab2026'),
-                    const Divider(height: 1, thickness: 1),
                   ],
                 ),
+                child: const CircleAvatar(
+                  radius: 45,
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.person_outline,
+                    size: 50,
+                    color: Colors.lightBlue,
+                  ),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 30),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: ListView(
+                    children: [
+                      const Divider(height: 1, thickness: 1),
+                      _buildInfoRow(Icons.person_outline, 'PAB 2026'),
+                      const Divider(height: 1, thickness: 1),
+                      _buildInfoRow(Icons.phone_outlined, '1462300157'),
+                      const Divider(height: 1, thickness: 1),
+                      _buildInfoRow(
+                        Icons.email_outlined,
+                        'fariddihsan@gmail.com',
+                      ),
+                      const Divider(height: 1, thickness: 1),
+                      _buildInfoRow(Icons.location_on_outlined, 'Surabaya'),
+                      const Divider(height: 1, thickness: 1),
+                      _buildInfoRow(Icons.camera_alt_outlined, 'pab2026'),
+                      const Divider(height: 1, thickness: 1),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
