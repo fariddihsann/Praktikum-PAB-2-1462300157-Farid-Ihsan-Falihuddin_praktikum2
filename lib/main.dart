@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const MovieScreen(),
-    const ProfileScreen(), // Profile screen yang udah dirombak
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -83,7 +83,6 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-// --- HOME SCREEN ---
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -112,7 +111,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// --- MOVIE SCREEN ---
 class MovieScreen extends StatelessWidget {
   const MovieScreen({super.key});
 
@@ -160,7 +158,6 @@ class MovieScreen extends StatelessWidget {
   }
 }
 
-// --- PROFILE SCREEN ---
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -170,7 +167,6 @@ class ProfileScreen extends StatelessWidget {
 
     return Stack(
       children: [
-        // Background lengkung atas
         Align(
           alignment: Alignment.topCenter,
           child: Container(
@@ -184,8 +180,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ),
-
-        // Background lengkung bawah
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -199,8 +193,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ),
-
-        // Isi Konten Profile
         Column(
           children: [
             const SizedBox(height: 20),
@@ -209,8 +201,6 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),
-
-            // Foto Profil (Lingkaran Putih dengan shadow)
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -234,8 +224,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-
-            // List Informasi User
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -246,7 +234,6 @@ class ProfileScreen extends StatelessWidget {
                     const Divider(height: 1, thickness: 1),
                     _buildInfoRow(Icons.phone_outlined, '1462300157'),
                     const Divider(height: 1, thickness: 1),
-                    // Logo email udah ditambahkan di sini
                     _buildInfoRow(
                       Icons.email_outlined,
                       'fariddihsan@gmail.com',
@@ -266,7 +253,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Widget helper
   Widget _buildInfoRow(IconData? icon, String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
